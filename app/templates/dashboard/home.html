@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+{% block breadcrumb %}Home/Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Quick Stats Row -->
+<div class="stats-row">
+    <div class="stat-col">
+        <div class="stat-card">
+            <div class="stat-body">
+                <div class="stat-content" style="text-align: center;">
+                    <div>
+                        <h6 class="stat-label">My Courses</h6>
+                        <h4>{{ courses|length }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stat-col">
+        <div class="stat-card">
+            <div class="stat-body">
+                <div class="stat-content" style="text-align: center;">
+                    <div>
+                        <h6 class="stat-label">Pending Tasks</h6>
+                        <h4>0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stat-col">
+        <div class="stat-card">
+            <div class="stat-body">
+                <div class="stat-content" style="text-align: center;">
+                    <div>
+                        <h6 class="stat-label">Status</h6>
+                        <h4>Active</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Course Organization -->
+<div class="course-container">
+    <div class="course-header">
+        <ul id="yearTabs" role="tablist">
+            <li role="presentation">
+                <button class="active" id="y1-tab" data-bs-toggle="tab" data-bs-target="#year1" type="button">YEAR I</button>
+            </li>
+            <li role="presentation">
+                <button id="y2-tab" data-bs-toggle="tab" data-bs-target="#year2" type="button">YEAR II</button>
+            </li>
+            <li role="presentation">
+                <button id="y3-tab" data-bs-toggle="tab" data-bs-target="#year3" type="button">YEAR III</button>
+            </li>
+            <li role="presentation">
+                <button id="y4-tab" data-bs-toggle="tab" data-bs-target="#year4" type="button">YEAR IV</button>
+            </li>
+        </ul>
+    </div>
+    <div class="course-body">
+        <div class="tab-content" id="yearTabsContent">
+            {% for y in [1, 2, 3, 4] %}
+            <div class="tab-pane fade {% if y == 1 %}show active{% endif %}" id="year{{ y }}" role="tabpanel">
+                
+                {% set year_courses = courses|selectattr('year', 'equalto', y)|list %}
+                
+                {% if year_courses %}
+                    {% set sem1 = year_courses|selectattr('semester', 'equalto', 1)|list %}
+                    {% if sem1 %}
+                    <div class="semester-block">
+                        <h6 class="semester-title">Semester 1</h6>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    {% for course in sem1 %}
+                                    <tr>
+                                        <td class="course-name">
+                                            <a href="{{ url_for('main.view_course', course_id=course.id) }}">
+                                                <span class="code">{{ course.code }}</span>
+                                                <span class="title">{{ course.title }}</span>
+                                            </a>
+                                        </td>
+                                        <td class="course-action">
+                                            <a href="{{ url_for('main.view_course', course_id=course.id) }}">
+                                                SELECT COURSE <i class="bi bi-chevron-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% set sem2 = year_courses|selectattr('semester', 'equalto', 2)|list %}
+                    {% if sem2 %}
+                    <div class="semester-block">
+                        <h6 class="semester-title">Semester 2</h6>
+                        <div class="table-responsive">
+                             <table class="table">
+                                <tbody>
+                                    {% for course in sem2 %}
+                                    <tr>
+                                        <td class="course-name">
+                                            <a href="{{ url_for('main.view_course', course_id=course.id) }}">
+                                                <span class="code">{{ course.code }}</span>
+                                                <span class="title">{{ course.title }}</span>
+                                            </a>
+                                        </td>
+                                        <td class="course-action">
+                                            <a href="{{ url_for('main.view_course', course_id=course.id) }}">
+                                                SELECT COURSE <i class="bi bi-chevron-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% else %}
+                    <div class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <p>No courses available for Year {{ y }}.</p>
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

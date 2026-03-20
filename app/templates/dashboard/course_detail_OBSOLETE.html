@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+    
+	<!-- Course Header Grid -->
+	<div class="stats-row">
+		<!-- Title Section (Wide) -->
+		<div class="stat-col" style="flex: 0 0 65%; max-width: 65%;">
+			<div class="stat-card" style="height: 100%;">
+				<div class="stat-body" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+					<div class="stat-content">
+						<h2 style="margin: 0; font-size: 1.75rem; font-weight: 700; color: cyan; line-height: 1.15; text-transform: uppercase;">
+							{{ course.code }}: {{ course.title }}
+						</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- Details Section (Narrow) -->
+<div class="stat-col" style="flex: 0 0 35%; max-width: 35%;">
+    <div class="stat-card" style="height: 100%;">
+        <div class="stat-body" style="display: block;">
+            <div class="stat-content" style="text-align: left;">
+                <div style="font-size: 0.8rem; color: #c2c2c2; line-height: 1.2;">                    
+                    <!-- Instructor Row -->
+                    <div style="display: flex;">
+                        <span style="min-width: 110px;">Instructor:</span>
+                        <span>{{ course.instructor if course.instructor else 'TBA' }}</span>
+                    </div>
+                    <!-- School Row -->
+                    <div style="display: flex;">
+                        <span style="min-width: 110px;">School:</span>
+                        <span>{{ course.school_name if course.school_name else 'TBA' }}</span>
+                    </div>
+                    <!-- Year & Semester Row -->
+                    <div style="display: flex;">
+                        <span style="min-width: 110px;">Year & Sem:</span>
+                        <span>
+                            {{ course.year if course.year is not none else 'TBA' }}, 
+                            {{ course.semester if course.semester is not none else 'TBA' }}
+                        </span>
+                    </div>
+                    <!-- Credit Points Row -->
+                    <div style="display: flex;">
+                        <span style="min-width: 110px;">Credit Points:</span>
+                        <span>{{ course.credit_points if course.credit_points is not none else 'TBA' }}</span>
+                    </div>
+                    <!-- Mode Row -->
+                    <div style="display: flex;">
+                        <span style="min-width: 110px;">Mode:</span>
+                        <span>{% if course.live_link %}Live{% else %}Online{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	</div>
+    <!-- Live Class Section -->
+    <div class="course-section">
+        <h3 class="section-title">Live Session</h3>
+        <div class="section-content">
+            {% if course.live_link %}
+                <div class="item-wrapper">
+                    <div class="item-row">
+                        <span class="item-title">Class is currently active</span>
+                        <div class="item-actions">
+                            <a href="{{ course.live_link }}" target="_blank" class="btn-live">
+                                <i class="bi bi-camera-video"></i> Join
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="empty-text">No live session scheduled</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recorded Classes Section -->
+    <div class="course-section">
+        <h3 class="section-title">Recorded Classes</h3>
+        <div class="section-content">
+            {% if recordings %}
+                {% for rec in recordings %}
+                <div class="item-wrapper">
+                    <div class="item-row">
+                        <span class="item-title">{{ rec.title }}</span>
+                        <div class="item-actions">
+                            {% if rec.description %}
+                            <button class="btn-desc" onclick="toggleDesc(this)">Descriptions</button>
+                            {% endif %}
+                            <a href="{{ rec.video_url }}" target="_blank" class="btn-action">View</a>
+                            <a href="{{ url_for('main.discussions', course_id=course.id, topic=rec.title) }}" class="btn-action">Discuss</a>
+                        </div>
+                    </div>
+                    {% if rec.description %}
+                    <div class="desc-dropdown">
+                        <div class="desc-content">{{ rec.description }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-text">No recordings available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Course Notes Section -->
+    <div class="course-section">
+        <h3 class="section-title">Course Notes</h3>
+        <div class="section-content">
+            {% if materials %}
+                {% for mat in materials %}
+                <div class="item-wrapper">
+                    <div class="item-row">
+                        <span class="item-title">{{ mat.title }}</span>
+                        <div class="item-actions">
+                            {% if mat.description %}
+                            <button class="btn-desc" onclick="toggleDesc(this)">Descriptions</button>
+                            {% endif %}
+                            <a href="{{ mat.file_url }}" class="btn-action">Download</a>
+                            <a href="{{ url_for('main.discussions', course_id=course.id, topic=mat.title) }}" class="btn-action">Discuss</a>
+                        </div>
+                    </div>
+                    {% if mat.description %}
+                    <div class="desc-dropdown">
+                        <div class="desc-content">{{ mat.description }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-text">No notes uploaded</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Assignments Section -->
+    <div class="course-section">
+        <h3 class="section-title">Assignments</h3>
+        <div class="section-content">
+            {% if assignments %}
+                {% for asg in assignments %}
+                <div class="item-wrapper">
+                    <div class="item-row">
+                        <span class="item-title">{{ asg.title }}</span>
+                        <div class="item-actions">
+                            {% if asg.description %}
+                            <button class="btn-desc" onclick="toggleDesc(this)">Descriptions</button>
+                            {% endif %}
+                            {% if asg.file_url %}
+                            <a href="{{ asg.file_url }}" class="btn-action">Download</a>
+                            {% endif %}
+                            <a href="{{ url_for('main.discussions', course_id=course.id, topic=asg.title) }}" class="btn-action">Discuss</a>
+                            <a href="{{ url_for('main.submit_assignment', assignment_id=asg.id) }}" class="btn-action submit-btn">Submit</a>
+                        </div>
+                    </div>
+                    {% if asg.description %}
+                    <div class="desc-dropdown">
+                        <div class="desc-content">{{ asg.description }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-text">No assignments posted</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="course-section">
+        <h3 class="section-title">Announcements</h3>
+        <div class="section-content">
+            <div class="item-row">
+                <span class="item-title">Instructor Instructions & Updates</span>
+                <div class="item-actions">
+                    <a href="{{ url_for('main.discussions', course_id=course.id, topic='Announcements') }}" class="btn-action">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleDesc(button) {
+    const wrapper = button.closest('.item-wrapper');
+    const dropdown = wrapper.querySelector('.desc-dropdown');
+    
+    document.querySelectorAll('.desc-dropdown').forEach(dd => {
+        if (dd !== dropdown) {
+            dd.style.display = 'none';
+            const otherBtn = dd.closest('.item-wrapper').querySelector('.btn-desc');
+            if (otherBtn) otherBtn.textContent = 'Descriptions';
+        }
+    });
+    
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        button.textContent = 'Descriptions';
+    } else {
+        dropdown.style.display = 'block';
+        button.textContent = 'Hide';
+    }
+}
+</script>
+{% endblock %}

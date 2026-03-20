@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block breadcrumb %}HOME / DASHBOARD / {{ course.code }}{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+
+    <!-- Navigation Button -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('main.view_course', course_id=course.id) }}" class="btn-action">
+            <i class="bi bi-arrow-left"></i> Back to Course
+        </a>
+    </div>
+
+    <div class="course-section">
+        <h3 class="section-title">Create New Post</h3>
+        <div style="margin-bottom: 1rem; padding: 0.5rem; background: #333; border-radius: 6px; display: inline-block;">
+            <small style="color: #999;">Topic:</small> <strong style="color: cyan;">{{ topic }}</strong>
+        </div>
+
+        <div class="section-content">
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label", style="color: #c2c2c2;") }}
+                    {{ form.title(class="form-control", style="background-color: #444; border: 1px solid #666; color: #ecf0f1; border-radius: 8px; padding: 10px;") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.content.label(class="form-label", style="color: #c2c2c2;") }}
+                    {{ form.content(class="form-control", rows="5", style="background-color: #444; border: 1px solid #666; color: #ecf0f1; border-radius: 8px; padding: 10px;") }}
+                </div>
+                <div class="item-actions" style="padding-top: 10px; border-top: 1px solid #555;">
+                    <a href="{{ url_for('main.discussions', course_id=course.id, topic=topic) }}" class="btn-action" style="background-color: #555;">Cancel</a>
+                    {{ form.submit(class="btn-action submit-btn") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

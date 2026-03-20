@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DODL UNITECH{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- ========== FIXED NAVBAR (TWO‑ROW) ========== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <div class="w-100">
+                <!-- Top row: brand + breadcrumb + user menu -->
+                <div class="d-flex justify-content-between align-items-center navbar-top">
+                    <a class="navbar-brand" href="{{ url_for('main.dashboard') if current_user.is_authenticated else url_for('main.index') }}">
+                        <i class="bi bi-mortarboard-fill"></i> DODL UNITECH
+                    </a>
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Breadcrumb (dynamic) -->
+                        <span class="breadcrumb-nav">
+                            {% block breadcrumb %}HOME{% endblock %}
+                        </span>
+                        <!-- User dropdown -->
+                        {% if current_user.is_authenticated %}
+                            <div class="dropdown nav-item">
+                                <a class="nav-link" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: orange;">
+                                    <i class="bi bi-person-circle"></i> {{ current_user.name }}, {{ current_user.student_id }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                    <li><a class="dropdown-item text-end" href="#">	Profile <i class="bi bi-person ms-2"></i></a></li>
+                                    <li><a class="dropdown-item text-end" href="#">Settings <i class="bi bi-gear ms-2"></i></a></li>
+                                    <!-- <li><hr class="dropdown-divider"></li> -->
+                                    <li><a class="dropdown-item text-end text-danger" href="{{ url_for('auth.logout') }}">Logout <i class="bi bi-box-arrow-right ms-2"></i></a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div>
+                                <a class="nav-link d-inline" href="{{ url_for('auth.login') }}">Login</a>
+                                <span class="text-white-50">|</span>
+                                <a class="nav-link d-inline" href="{{ url_for('auth.register') }}">Register</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Bottom row: navigation tabs with dropdowns -->
+                <div class="navbar-bottom collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-0">
+                        <!-- HOME dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                HOME
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="homeDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                            </ul>
+                        </li>
+                        <!-- RESOURCES dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                RESOURCES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="resourcesDropdown">
+                                <li><a class="dropdown-item" href="#">Library</a></li>
+                                <li><a class="dropdown-item" href="#">e-Learning</a></li>
+                                <li><a class="dropdown-item" href="#">Exam Results</a></li>
+                            </ul>
+                        </li>
+                        <!-- NOTICES dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="noticesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                NOTICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="noticesDropdown">
+                                <li><a class="dropdown-item" href="#">Announcements</a></li>
+                                <li><a class="dropdown-item" href="#">Events</a></li>
+                                <li><a class="dropdown-item" href="#">Deadlines</a></li>
+                            </ul>
+                        </li>
+                        <!-- GALLERY dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="galleryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                GALLERY
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="galleryDropdown">
+                                <li><a class="dropdown-item" href="#">Photos</a></li>
+                                <li><a class="dropdown-item" href="#">Videos</a></li>
+                                <li><a class="dropdown-item" href="#">Campus Tour</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Toggler for mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <div>{{ message }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ========== ORIGINAL FOOTER (RESTORED) ========== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <span class="footer-logo"><i class="bi bi-mortarboard-fill"></i> DODL UNITECH</span>
+                    <p>Department of Open and Distance Learning (DODL) provides accessible, high-quality education.</p>
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+                        <li><a href="#"><i class="bi bi-twitter"></i></a></li>
+                        <li><a href="#"><i class="bi bi-envelope-fill"></i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Student Handbook</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <h6>Resources</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">e-Learning Portal</a></li>
+                        <li><a href="#">Exam Results</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="col-sm-12 col-md-4 col-lg-4 mt-3 mt-lg-0">
+                    <h6>Contact Us</h6>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i> University of Technology, Lae, PNG</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> dodl@unitech.ac.pg</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <p class="copyright-text">&copy; 2024 DODL UNITECH. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-md-end">
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2 class="text-center mb-4">Student Registration</h2>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Full Name") }}
+            {% for error in form.name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.student_id.label(class="form-label") }}
+            {{ form.student_id(class="form-control" + (" is-invalid" if form.student_id.errors else ""), placeholder="e.g., 2024001") }}
+            {% for error in form.student_id.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Email Address") }}
+            {% for error in form.email.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else "")) }}
+            {% for error in form.password.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password2.label(class="form-label") }}
+            {{ form.password2(class="form-control" + (" is-invalid" if form.password2.errors else "")) }}
+            {% for error in form.password2.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        </div>
+
+        <div class="d-grid">
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+        
+        <p class="text-center mt-3">
+            Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

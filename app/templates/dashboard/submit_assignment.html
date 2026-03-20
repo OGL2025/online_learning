@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block breadcrumb %}HOME / DASHBOARD / {{ course.code }}{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+
+    <!-- Back Button -->
+    <div style="margin-bottom: 1rem;">
+        <a href="{{ url_for('main.view_course', course_id=assignment.course_id) }}" class="btn-action">
+            <i class="bi bi-arrow-left"></i> Back to Course
+        </a>
+    </div>
+
+    <!-- Main Submission Section -->
+    <div class="course-section">
+        <h3 class="section-title">Submit: {{ assignment.title }}</h3>
+        
+        <div class="section-content">
+            <!-- Instructions Area -->
+            <div style="margin-bottom: 1.5rem;">
+                <div style="font-size: 0.9rem; color: #c2c2c2; margin-bottom: 0.5rem;">Instructions:</div>
+                <div style="background-color: #333; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--secondary-color); color: #ddd; white-space: pre-wrap;">
+                    {{ assignment.description or 'No specific instructions provided.' }}
+                </div>
+            </div>
+
+            <!-- Upload Form -->
+            <form method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+                <div class="mb-3">
+                    {{ form.file.label(class="form-label", style="color: #c2c2c2; font-weight: bold; display: block; margin-bottom: 0.5rem;") }}
+                    
+                    {{ form.file(class="form-control", style="background-color: #444; border: 1px solid #666; color: #ecf0f1; border-radius: 8px; padding: 10px;") }}
+                    
+                    {% if form.file.errors %}
+                        <div style="color: #e74c3c; font-size: 0.85rem; margin-top: 0.5rem;">
+                            {% for error in form.file.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <div style="color: #777; font-size: 0.8rem; margin-top: 0.5rem;">
+                        <i class="bi bi-info-circle"></i> Max size 16MB. Allowed: pdf, doc, docx, zip, py, pptx.
+                    </div>
+                </div>
+
+                <div class="item-actions" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #555;">
+                    {{ form.submit(class="btn-action submit-btn") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

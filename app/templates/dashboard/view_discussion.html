@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block breadcrumb %}HOME/DASHBOARD/{{ course.code }}{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+
+    <!-- Navigation Buttons -->
+    <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+        <a href="{{ url_for('main.view_course', course_id=post.course_id) }}" class="btn-action">
+            <i class="bi bi-arrow-left"></i> Back to Course
+        </a>
+        <a href="{{ url_for('main.discussions', course_id=post.course_id, topic=post.topic) }}" class="btn-action" style="background-color: #555;">
+            <i class="bi bi-chat-left-text"></i> Back to {{ post.topic }}
+        </a>
+    </div>
+
+    <!-- Main Post Section -->
+    <div class="course-section">
+        <h3 class="section-title">{{ post.title }}</h3>
+        <div class="section-content">
+            <p style="white-space: pre-wrap; color: #ddd; line-height: 1.6;">{{ post.content }}</p>
+            <div style="border-top: 1px solid #555; margin-top: 1rem; padding-top: 0.5rem;">
+                <small style="color: #999;">
+                    Posted by <strong style="color: #3498db;">{{ post.author.name }}</strong> on {{ post.created_at.strftime('%Y-%m-%d at %H:%M') }}
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment Form Section -->
+    <div class="course-section">
+        <h3 class="section-title">Leave a Comment</h3>
+        <div class="section-content">
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.content(class="form-control", rows="3", style="background-color: #444; border: 1px solid #666; color: #ecf0f1; border-radius: 8px; padding: 10px;") }}
+                </div>
+                {{ form.submit(class="btn-action submit-btn") }}
+            </form>
+        </div>
+    </div>
+
+    <!-- Comments List Section -->
+    {% if comments %}
+    <div class="course-section">
+        <h3 class="section-title">Comments ({{ comments|length }})</h3>
+        <div class="section-content">
+            {% for comment in comments %}
+            <div class="item-wrapper" style="margin-bottom: 0.5rem;">
+                <p style="margin: 0 0 0.5rem 0; white-space: pre-wrap; color: #ccc;">{{ comment.content }}</p>
+                <small style="color: #777;">
+                    <strong style="color: #3498db;">{{ comment.author.name }}</strong> - {{ comment.created_at.strftime('%H:%M, %d %b') }}
+                </small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
