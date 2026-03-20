@@ -1,30 +1,36 @@
 /* DODL UNITECH Custom Styles #1a1f24; */
 :root {
-    --primary-color: #2c3e50; --secondary-color: #3498db; --accent-color: #e74c3c; --footer-bg: #1a252f; background: #0a0f14;
+    --primary-color: #2c3e50; 
+    --secondary-color: #3498db; 
+    --accent-color: #e74c3c; 
+    --footer-bg: #1a252f;     
+    /* Tunable Colors */
+    --bg-theme-color: #034;       /* Gradient Start Color */
+    --base-bg-color: #0a0f14;     /* Page Border/Root Background */    
+    background: var(--base-bg-color); /* Apply root background */
 }
-
 html, body { height: 100%; }
 
 body {
-	background: 
-		radial-gradient(ellipse at 30% 40%, rgba(0, 130, 130, 0.12) 0%, transparent 50%),
-		linear-gradient(0deg, #0f212e 0%, #030a0f 80%);
+    background: 
+        radial-gradient(ellipse at 30% 40%, rgba(0, 130, 130, 0.12) 0%, transparent 50%),
+        linear-gradient(0deg, var(--bg-theme-color) 0%, #030a0f 100%); /* UPDATED: #034 replaced by var */
     box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
     font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
-    padding-top: 70px; /* increased to accommodate two‑row header */
+    padding-top: 70px;
     max-width: 1300px;
     margin: 0 auto;
     color: #e1e1e1;
     font-size: 13px;
-	border: 1px solid #000;
+    border: 1px solid #000;
 }
 
 main { flex: 1 0 auto; }
 
 /* --- NAVBAR (two‑row compact header) --- */
-.navbar { background: linear-gradient(0deg, #112 10%, #301 100%) !important; box-shadow: 0 2px 10px rgba(0,0,0,.3); max-width: 1300px; width: 100%; margin: 0 auto; padding: 0 0.5rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1030; border-bottom: 1px solid #000; min-height: auto; }
+.navbar { background: linear-gradient(0deg, #000 10%, #301 100%) !important; box-shadow: 0 2px 10px rgba(0,0,0,.3); max-width: 1300px; width: 100%; margin: 0 auto; padding: 0 0.5rem; position: fixed; top: 0; left: 0; right: 0; z-index: 1030; border-bottom: 1px solid #000; min-height: auto; }
 .navbar-top { padding: 0.3rem 0; border-bottom: 1px solid rgba(45,38,41,0.7); display: flex; justify-content: space-between; align-items: center; }
 .navbar-bottom { padding: 0.2rem 0; align-items: center; }
 .navbar-brand { font-weight: 700; font-size: 1rem !important; color: orange !important; display: flex; align-items: center; gap: 5px; padding: 0 !important; }
@@ -46,6 +52,29 @@ main { flex: 1 0 auto; }
 .dropdown-item { color: #e5e5e5; padding: 0.1rem 0.8rem; font-size: 0.75rem; background-color: #213; }
 .dropdown-item:hover { background-color: #2c3e50; color: lime; }
 .nav-head { color: green; font-size: 17px; text-align: center; }
+
+/* --- AUTH LINKS (LOGIN/REGISTER) --- */
+.nav-auth-link {
+    color: darkorange;        /* Normal color */
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    padding: 0.1rem 0.15rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.nav-auth-link:hover {
+    color: lime;              /* Hover color */
+}
+
+/* Separator styling */
+.auth-separator {
+    color: #930;
+    margin: 0 2px;
+    font-size: 0.8rem;
+}
 
 /* --- CARDS --- */
 .card { border-top: 4px solid var(--secondary-color); border-radius: 8px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.4); color: #e1e1e1 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
@@ -190,6 +219,46 @@ main { flex: 1 0 auto; }
     color: #f1f1f1;
     margin: 0;
 }
+
+/* --- FOOTER INTEGRATED THEME TUNER --- */
+.footer-tuner-container {
+    display: flex;
+    justify-content: center; /* Centered on mobile */
+    margin-bottom: 0.25rem;
+}
+
+.footer-tuner-icons {
+    display: flex;
+    gap: 6px;
+}
+
+.footer-tuner-icons input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 14px;       /* Reduced Size */
+    height: 14px;      /* Reduced Size */
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    background: transparent;
+    border: 1px solid #000; /* Black Border */
+}
+
+.footer-tuner-icons input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.footer-tuner-icons input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+/* Hover effect */
+.footer-tuner-icons input[type="color"]:hover {
+    transform: scale(1.2);
+    border-color: #fff;
+}
+
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
     body { padding-top: 60px; font-size: 12px; }
@@ -198,9 +267,24 @@ main { flex: 1 0 auto; }
     .header-year { display: none; }
     .course-action { width: 100px; white-space: nowrap; }
     .site-footer { padding: 10px 0 5px; font-size: 10px; }
-	.course-detail-container { gap: 0.5rem; }
+    .course-detail-container { gap: 0.5rem; }
     .navbar-top { flex-wrap: wrap; }
     .breadcrumb-nav { font-size: 0.7rem; padding: 0.1rem 0.4rem; }
     .navbar-bottom .nav-link { padding: 0.2rem 0.5rem !important; }
+    
+    /* Force tuner to center on mobile */
+    .footer-tuner-container { 
+        justify-content: center !important; 
+    }
 }
-@media (max-width: 991px) { .site-footer [class^=col-] { margin-bottom: 10px; } }
+
+@media (min-width: 769px) {
+    /* Force tuner to right-align on Desktop */
+    .footer-tuner-container {
+        justify-content: flex-end !important;
+    }
+}
+
+@media (max-width: 991px) { 
+    .site-footer [class^=col-] { margin-bottom: 10px; } 
+}

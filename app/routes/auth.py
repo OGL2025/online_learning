@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, current_user
 from app import db
 from app.routes import auth
 from app.forms import LoginForm, RegistrationForm
-from app.models import Student
+from app.models import User # Changed from Student
 from flask import Blueprint
 
 auth = Blueprint('auth', __name__)
@@ -16,18 +16,12 @@ def login():
     
     form = LoginForm()
     if form.validate_on_submit():
-        student = Student.query.filter_by(email=form.email.data).first()
-        if student is None or not student.check_password(form.password.data):
-            # Note: You need to implement check_password in the Model, or use werkzeug directly here
-            # For simplicity in this file, I'll assume the password check method exists.
-            # We will add this method to the Student model in a final polish if needed,
-            # but for now, let's use werkzeug check_password_hash
-            from werkzeug.security import check_password_hash
-            if student is None or not check_password_hash(student.password_hash, form.password.data):
-                flash('Invalid email or password')
-                return redirect(url_for('auth.login'))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid email or password')
+            return redirect(url_for('auth.login'))
         
-        login_user(student, remember=form.remember_me.data)
+        login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.dashboard')
@@ -42,14 +36,14 @@ def register():
     
     form = RegistrationForm()
     if form.validate_on_submit():
-        from werkzeug.security import generate_password_hash
-        student = Student(
+        user = User(
             name=form.name.data,
             student_id=form.student_id.data,
             email=form.email.data,
-            password_hash=generate_password_hash(form.password.data)
+            role='student' # Default role
         )
-        db.session.add(student)
+        user.set_password(form.password.data)
+        db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered student!')
         return redirect(url_for('auth.login'))

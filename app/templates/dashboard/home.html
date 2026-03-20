@@ -46,6 +46,14 @@
 <!-- Course Organization -->
 <div class="course-container">
     <div class="course-header">
+	        <!-- ADD A BUTTON FOR CATALOG HERE FOR STUDENTS -->
+        {% if role == 'student' %}
+        <div style="padding: 0.5rem; text-align: right;">
+            <a href="{{ url_for('main.course_catalog') }}" class="btn-action submit-btn">
+                <i class="bi bi-plus-circle"></i> Browse Courses to Enrol
+            </a>
+        </div>
+        {% endif %}
         <ul id="yearTabs" role="tablist">
             <li role="presentation">
                 <button class="active" id="y1-tab" data-bs-toggle="tab" data-bs-target="#year1" type="button">YEAR I</button>

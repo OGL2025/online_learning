@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from app.models import Student
+from flask_wtf.file import FileAllowed
+from app.models import User  # FIXED: Changed 'Student' to 'User'
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -18,17 +19,22 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_student_id(self, student_id):
-        user = Student.query.filter_by(student_id=student_id.data).first()
+        # FIXED: Use User query
+        user = User.query.filter_by(student_id=student_id.data).first()
         if user is not None:
             raise ValidationError('Please use a different Student ID.')
 
     def validate_email(self, email):
-        user = Student.query.filter_by(email=email.data).first()
+        # FIXED: Use User query
+        user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
 class SubmissionForm(FlaskForm):
-    file = FileField('Upload Assignment File')
+    file = FileField('Upload Assignment File', validators=[
+        DataRequired(),
+        FileAllowed(['pdf', 'doc', 'docx', 'zip', 'py', 'pptx', 'xls', 'xlsx'], 'Invalid file type!')
+    ])
     submit = SubmitField('Submit Assignment')
 
 class DiscussionForm(FlaskForm):

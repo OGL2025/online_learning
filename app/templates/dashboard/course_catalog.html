@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block breadcrumb %}Home / Course Catalog{% endblock %}
+
+{% block content %}
+<div class="course-detail-container">
+    <div class="course-section">
+        <h3 class="section-title">Available Courses for Enrollment</h3>
+        <div class="section-content">
+            {% if courses %}
+                {% for course in courses %}
+                <div class="item-wrapper">
+                    <div class="item-row">
+                        <div class="item-info">
+                            <span class="item-title">{{ course.code }}: {{ course.title }}</span>
+                            <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">
+                                Instructor: {{ course.instructor_user.name if course.instructor_user else 'TBA' }}
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            {% if course.id in applied_ids %}
+                                <span class="badge bg-secondary">Applied/Enrolled</span>
+                            {% else %}
+                                <a href="{{ url_for('main.apply_course', course_id=course.id) }}" class="btn-action submit-btn">
+                                    Apply
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-text">No courses available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
