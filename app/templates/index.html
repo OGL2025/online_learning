@@ -2,10 +2,9 @@
 {% block title %}Welcome to DODL UNITECH{% endblock %}
 
 {% block content %}
-<div class="public-home">
-
+<div class="public-home" style="margin-bottom: 0px;">
     <!-- Hero Section -->
-    <div class="hero-section text-center py-5 px-3" style="background: rgba(0,0,0,0.1); border-radius: 12px; border: 0px solid #000000; margin-bottom: 2rem;">
+    <!-- <div class="hero-section text-center py-5 px-3" style="background: rgba(0,0,0,0.1); border-radius: 12px; border: 0px solid #000000; margin-bottom: 2rem;">
         <div class="hero-icon mb-3">
             <i class="bi bi-mortarboard-fill" style="font-size: 3.5rem; color: var(--secondary-color);"></i>
         </div>
@@ -15,75 +14,73 @@
         <p style="font-size: 1.1rem; color: #ccc; max-width: 600px; margin: 0 auto 1.5rem auto;">
             Department of Open and Distance Learning. Your gateway to flexible, high-quality education in Papua New Guinea.
         </p>
-<!--         <div class="d-flex justify-content-center gap-3">
-            <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-5">
-                <i class="bi bi-box-arrow-in-right me-2"></i> Student Login
-            </a>
-            <a href="#features" class="btn btn-outline-light btn-lg px-5">
-                Learn More
-            </a>
-        </div> -->
-    </div>
+             <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-5">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Student Login
+                </a>
+                <a href="#features" class="btn btn-outline-light btn-lg px-5">
+                    Learn More
+                </a>
+            </div> 
+    </div> -->
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <h1 class="hero-title">UNITECH DODL</h1>
+        <p class="hero-subtitle">
+            Department of Open and Distance Learning. Your gateway to flexible, high-quality education in Papua New Guinea.
+        </p>
+    </section>
 
     <!-- Features Section -->
-    <div id="features" class="row mb-5">
-        <div class="col-md-4 mb-3">
-            <div class="card h-100 text-center border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-journal-bookmark-fill" style="font-size: 2rem; color: lime;"></i>
-                    </div>
-                    <h5 style="color: #fff;">Resources</h5>
-                    <p class="small">Access lecture notes, videos, and academic materials online.</p>
-                </div>
+    <section class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-journal-bookmark-fill" style="color: lime;"></i>
             </div>
+            <h5 class="feature-title">Resources</h5>
+            <p class="feature-text">Access lecture notes, videos, and academic materials online.</p>
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="card h-100 text-center border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-people-fill" style="font-size: 2rem; color: cyan;"></i>
-                    </div>
-                    <h5 style="color: #fff;">Community</h5>
-                    <p class="small">Engage with instructors and peers in discussion forums.</p>
-                </div>
+        <!-- Card 2 -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-people-fill" style="color: cyan;"></i>
             </div>
+            <h5 class="feature-title">Community</h5>
+            <p class="feature-text">Engage with instructors and peers in discussion forums.</p>
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="card h-100 text-center border-0 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="bi bi-award-fill" style="font-size: 2rem; color: orange;"></i>
-                    </div>
-                    <h5 style="color: #fff;">Certified</h5>
-                    <p class="small">Earn recognized certifications and academic credits.</p>
-                </div>
+        <!-- Card 3 -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="bi bi-award-fill" style="color: orange;"></i>
             </div>
+            <h5 class="feature-title">Certified</h5>
+            <p class="feature-text">Earn recognized certifications and academic credits.</p>
         </div>
-    </div>
+    </section>
 
     <!-- Info Section -->
-    <div class="row align-items-center mb-5" style="background: rgba(0,0,0,0.01); padding: 2rem; border-radius: 8px;">
-        <div class="col-md-6">
-            <h3 style="color: #fff;">Flexible Learning</h3>
-            <p style="color: #bbb;">
-                Study at your own pace. Our platform allows you to view recorded classes, submit assignments, and track your progress from anywhere in the country.
-            </p>
+    <section class="info-section">
+        <div class="info-content">
+            <h3>Flexible Learning</h3>
+            <p>Study at your own pace. Our platform allows you to view recorded classes, submit assignments, and track your progress from anywhere in the country.</p>
         </div>
-        <div class="col-md-6 text-center">
-		
-<img src="https://www.postcourier.com.pg/wp-content/uploads/2020/03/TopStories_05_Unitech-defers-graduation.jpg?resize=700,120" alt="Campus" class="img-fluid rounded shadow" style="mask: radial-gradient(circle, black 0%, transparent 100%); -webkit-mask: radial-gradient(circle, black 0%, transparent 100%);">
-    
-	   </div>
-    </div>
+        <div class="info-image">
+            <img src="https://www.postcourier.com.pg/wp-content/uploads/2020/03/TopStories_05_Unitech-defers-graduation.jpg?resize=700,120" alt="Campus">
+        </div>
+    </section>
+
+    <!-- AI Statement -->
+    <div class="ai-statement">
+        <p>
+            <i class="bi bi-cpu-fill" style="color: cyan;"></i> 
+            Forging a pathway towards personalized and adaptive learning experiences powered by <span style="color: #f0f0f0; font-weight: 600;">Machine Learning & AI</span>.
+            <i class="bi bi-cpu-fill" style="color: cyan;"></i> 
+        </p>
+    </div> 
 
 </div>
-<!-- AI STATEMENT -->
-<div class="container text-center" style="margin-top: 12rem; padding-bottom: 0.1rem;">
-    <p style="font-size: 0.85rem; color: #777; letter-spacing: 0.5px; margin: 0;">
-        <i class="bi bi-cpu-fill" style="color: cyan;"></i> 
-        Forging a pathway towards personalized and adaptive learning experiences powered by <span style="color: #f0f0f0; font-weight: 600;">Machine Learning & AI</span>.
-        <i class="bi bi-cpu-fill" style="color: cyan;"></i> 
-    </p>
-</div> 
 {% endblock %}

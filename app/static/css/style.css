@@ -14,7 +14,7 @@ html, body { height: 100%; }
 body {
     background: 
         radial-gradient(ellipse at 30% 40%, rgba(0, 130, 130, 0.12) 0%, transparent 50%),
-        linear-gradient(0deg, var(--bg-theme-color) 0%, #030a0f 100%); /* UPDATED: #034 replaced by var */
+        linear-gradient(0deg, var(--bg-theme-color) 0%, #030a0f 100%);
     box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
     font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -55,7 +55,7 @@ main { flex: 1 0 auto; }
 
 /* --- AUTH LINKS (LOGIN/REGISTER) --- */
 .nav-auth-link {
-    color: darkorange;        /* Normal color */
+    color: darkorange;
     background: transparent;
     border: none;
     text-decoration: none;
@@ -66,10 +66,9 @@ main { flex: 1 0 auto; }
 }
 
 .nav-auth-link:hover {
-    color: lime;              /* Hover color */
+    color: lime;
 }
 
-/* Separator styling */
 .auth-separator {
     color: #930;
     margin: 0 2px;
@@ -77,7 +76,7 @@ main { flex: 1 0 auto; }
 }
 
 /* --- CARDS --- */
-.card { border-top: 4px solid var(--secondary-color); border-radius: 8px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.1); color: #e1e1e1 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.card { border-top: 4px solid var(--secondary-color); border-radius: 8px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.0); color: #e1e1e1 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 .card-header { background-color: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 600; border-radius: 8px 8px 0 0 !important; padding: 0.4rem 0.8rem; color: #fff; font-size: 0.9rem; }
 
 /* --- BUTTONS --- */
@@ -93,7 +92,7 @@ main { flex: 1 0 auto; }
 .form-control:focus { background-color: #222; border-color: var(--secondary-color); color: #fff; box-shadow: 0 0 0 0.1rem rgba(52, 152, 219, 0.25); }
 
 /* --- FOOTER --- */
-.site-footer { background: linear-gradient(135deg, #724 0%, #101 100%); padding: 15px 0 10px; font-size: 11px; line-height: 1.4; color: #d1d1d1; flex-shrink: 0; border-top: 1px solid #000; margin-top: 20px; }
+.site-footer { background: linear-gradient(135deg, #724 0%, #101 100%); padding: 15px 0 10px; font-size: 11px; line-height: 1.4; color: #d1d1d1; flex-shrink: 0; border-top: 1px solid #000; margin-top: 0px; }
 .site-footer h6 { color: #fff; font-size: 12px; text-transform: uppercase; margin-top: 0; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px; }
 .site-footer a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
 .site-footer a:hover { color: var(--secondary-color); text-decoration: none; }
@@ -212,7 +211,7 @@ main { flex: 1 0 auto; }
 .course-detail-title {font-size: 1.8rem;font-weight: 700; color: #f1f1f1; margin: 0;}
 
 /* --- FOOTER INTEGRATED THEME TUNER --- */
-.footer-tuner-container {display: flex; justify-content: right; margin-bottom: 0.15rem;}
+.footer-tuner-container {display: flex; justify-content: right; margin-top: -1rem;}
 
 .footer-tuner-icons {display: flex;  gap: 6px;}
 
@@ -237,58 +236,85 @@ main { flex: 1 0 auto; }
     border-radius: 50%;
 }
 
-/* Hover effect */
 .footer-tuner-icons input[type="color"]:hover {
     transform: scale(1.2);
     border-color: #fff;
 }
 
+/* --- HOME PAGE CUSTOM LAYOUT (Condensed) --- */
+.hero-section { text-align: center; padding: 2.5rem 1rem; margin-bottom: 2rem; }
+.hero-icon { margin-bottom: 1rem; }
+.hero-icon i { font-size: 3.5rem; color: var(--secondary-color); }
+.hero-title { font-weight: 800; font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
+.hero-subtitle { font-size: 1rem; color: #ccc; max-width: 600px; margin: 0 auto 1.5rem auto; line-height: 1.6; }
+
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+.feature-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(3, 3, 3, 0.15); border-radius: 8px; padding: 1.5rem; text-align: center; transition: transform 0.2s ease; }
+/* .feature-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); } */
+.feature-icon { margin-bottom: 1rem; }
+.feature-icon i { font-size: 2rem; }
+.feature-title { color: #fff; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feature-text { color: #bbb; font-size: 0.85rem; line-height: 1.5; margin: 0; }
+
+.info-section { display: flex; flex-wrap: nowrap; align-items: center; gap: 2rem; padding: 2rem 0; margin-bottom: 2rem; }
+.info-content { flex: 1; }
+.info-content h3 { color: #fff; margin-bottom: 0.5rem; font-size: 1.5rem; }
+.info-content p { color: #bbb; line-height: 1.6; margin: 0; }
+.info-image { flex: 1; text-align: center; }
+.info-image img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); mask: radial-gradient(circle, black 0%, transparent 100%); -webkit-mask: radial-gradient(circle, black 0%, transparent 100%); }
+
+.ai-statement { text-align: center; margin-top: 4rem; padding-bottom: 1rem; }
+.ai-statement p { font-size: 0.85rem; color: #777; letter-spacing: 0.5px; margin: 0; }
+
+/* --- RESPONSIVE SETTINGS --- */
 /* 1. DESKTOP & TABLET VIEW (> 480px) 
    Forces everything to remain HORIZONTAL like a large screen.
 */
 @media (min-width: 481px) {
-    /* FORCE NAVBAR TO STAY HORIZONTAL */
     .navbar-toggler {
-        display: none !important; /* Hide toggler icon */
+        display: none !important;
     }
     
     .navbar-collapse {
-        display: flex !important; /* Force menu links visible */
+        display: flex !important;
         flex-basis: auto;
-        position: relative; /* Reset fixed positioning */
+        position: relative;
         top: auto;
         left: auto;
         width: auto;
         height: auto;
         background: transparent;
-        transform: none !important; /* Reset sidebar slide-in */
+        transform: none !important;
         box-shadow: none;
         border: none;
         padding-top: 0;
     }
     
-    /* Ensure links are in a row, not stacked */
-    .navbar-nav {        flex-direction: row !important;    }
+    .navbar-nav { flex-direction: row !important; }
+
+    /* Force Footer Horizontal */
+    .site-footer .row { flex-wrap: nowrap !important; }
+    .site-footer [class^="col-"] { flex-basis: 0; flex-grow: 1; max-width: 100%; }
 }
 
 /* 2. MOBILE VIEW (< 480px) 
    Collapses Navbar to Sidebar and Footer to vertical stack.
 */
-@media (max-width: 780px) {
-    body { padding-top: 60px; }
+@media (max-width: 580px) {
+    body { padding-top: 0px; }
     
     /* --- NAVBAR SIDEBAR --- */
     .navbar-toggler {
         display: block !important;
         position: absolute;
         left: 2px;
-        top: 2px;
+        top: 3px;
         z-index: 1100;
         border: none;
         outline: none !important;
         box-shadow: none !important;
-        padding: 0.2rem 0.4rem;   /* Smaller padding around the icon */
-        font-size: 1.1rem;       /* Shrinks the icon lines */
+        padding: 0.2rem 0.4rem;
+        font-size: 1rem;
     }
     
     .navbar-brand { margin-left: 45px; }
@@ -297,7 +323,7 @@ main { flex: 1 0 auto; }
         position: fixed !important;
         top: 0;
         left: 0;
-        width: 200px;
+        width: 220px;
         height: 100vh !important;
         background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
         z-index: 1050;
@@ -328,7 +354,14 @@ main { flex: 1 0 auto; }
     }
     .dropdown-item { padding-left: 2.5rem; }
 
-    .footer-tuner-container { 
-        justify-content: right !important; 
-    }
+    /* Footer Collapse Logic */
+    .site-footer .row { flex-wrap: wrap !important; }
+    .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100%; margin-bottom: 10px; }
+
+    .footer-tuner-container { justify-content: center !important; }
+
+    /* Home Page Collapse Logic */
+    .features-grid { grid-template-columns: 1fr; }
+    .info-section { flex-direction: column; flex-wrap: wrap; }
+    .info-content, .info-image { width: 100%; }
 }
