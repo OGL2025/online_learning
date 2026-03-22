@@ -268,20 +268,7 @@ main { flex: 1 0 auto; }
     }
     
     /* Ensure links are in a row, not stacked */
-    .navbar-nav {
-        flex-direction: row !important;
-    }
-
-    /* FORCE FOOTER TO STAY HORIZONTAL */
-    .site-footer .row {
-        flex-wrap: nowrap !important;
-    }
-    
-    .site-footer [class^="col-"] {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    }
+    .navbar-nav {        flex-direction: row !important;    }
 }
 
 /* 2. MOBILE VIEW (< 480px) 
@@ -301,7 +288,7 @@ main { flex: 1 0 auto; }
         outline: none !important;
         box-shadow: none !important;
         padding: 0.2rem 0.4rem;   /* Smaller padding around the icon */
-        font-size: 1.2rem;       /* Shrinks the icon lines */
+        font-size: 1.1rem;       /* Shrinks the icon lines */
     }
     
     .navbar-brand { margin-left: 45px; }
@@ -341,18 +328,7 @@ main { flex: 1 0 auto; }
     }
     .dropdown-item { padding-left: 2.5rem; }
 
-    /* --- FOOTER COLLAPSE --- */
-    .site-footer .row {
-        flex-wrap: wrap !important;
-    }
-    
-    .site-footer [class^="col-"] {
-        flex-basis: 100% !important;
-        max-width: 100%;
-        margin-bottom: 10px;
-    }
-
     .footer-tuner-container { 
-        justify-content: center !important; 
+        justify-content: right !important; 
     }
 }
