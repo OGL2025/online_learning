@@ -77,7 +77,7 @@ main { flex: 1 0 auto; }
 }
 
 /* --- CARDS --- */
-.card { border-top: 4px solid var(--secondary-color); border-radius: 8px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.4); color: #e1e1e1 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.card { border-top: 4px solid var(--secondary-color); border-radius: 8px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.1); color: #e1e1e1 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 .card-header { background-color: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 600; border-radius: 8px 8px 0 0 !important; padding: 0.4rem 0.8rem; color: #fff; font-size: 0.9rem; }
 
 /* --- BUTTONS --- */
@@ -207,30 +207,14 @@ main { flex: 1 0 auto; }
 .desc-dropdown { display: none; background: rgba(0, 0, 0, 0.3); border-top: 1px solid #222; margin-top: 0.2rem; border-radius: 0 0 4px 4px; }
 .desc-content { padding: 0.5rem; font-size: 0.75rem; color: #ccc; line-height: 1.4; }
 
-.course-detail-header {
-    margin-bottom: 30px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 15px;
-}
+.course-detail-header {margin-bottom: 30px; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px;}
 
-.course-detail-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #f1f1f1;
-    margin: 0;
-}
+.course-detail-title {font-size: 1.8rem;font-weight: 700; color: #f1f1f1; margin: 0;}
 
 /* --- FOOTER INTEGRATED THEME TUNER --- */
-.footer-tuner-container {
-    display: flex;
-    justify-content: center; /* Centered on mobile */
-    margin-bottom: 0.25rem;
-}
+.footer-tuner-container {display: flex; justify-content: right; margin-bottom: 0.15rem;}
 
-.footer-tuner-icons {
-    display: flex;
-    gap: 6px;
-}
+.footer-tuner-icons {display: flex;  gap: 6px;}
 
 .footer-tuner-icons input[type="color"] {
     -webkit-appearance: none;
@@ -259,32 +243,114 @@ main { flex: 1 0 auto; }
     border-color: #fff;
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 768px) {
-    body { padding-top: 60px; font-size: 12px; }
-    .navbar-brand { font-size: 1rem; }
-    .stat-col { flex: 0 0 100%; max-width: 100%; }
-    .header-year { display: none; }
-    .course-action { width: 100px; white-space: nowrap; }
-    .site-footer { padding: 10px 0 5px; font-size: 10px; }
-    .course-detail-container { gap: 0.5rem; }
-    .navbar-top { flex-wrap: wrap; }
-    .breadcrumb-nav { font-size: 0.7rem; padding: 0.1rem 0.4rem; }
-    .navbar-bottom .nav-link { padding: 0.2rem 0.5rem !important; }
+/* 1. DESKTOP & TABLET VIEW (> 480px) 
+   Forces everything to remain HORIZONTAL like a large screen.
+*/
+@media (min-width: 481px) {
+    /* FORCE NAVBAR TO STAY HORIZONTAL */
+    .navbar-toggler {
+        display: none !important; /* Hide toggler icon */
+    }
     
-    /* Force tuner to center on mobile */
+    .navbar-collapse {
+        display: flex !important; /* Force menu links visible */
+        flex-basis: auto;
+        position: relative; /* Reset fixed positioning */
+        top: auto;
+        left: auto;
+        width: auto;
+        height: auto;
+        background: transparent;
+        transform: none !important; /* Reset sidebar slide-in */
+        box-shadow: none;
+        border: none;
+        padding-top: 0;
+    }
+    
+    /* Ensure links are in a row, not stacked */
+    .navbar-nav {
+        flex-direction: row !important;
+    }
+
+    /* FORCE FOOTER TO STAY HORIZONTAL */
+    .site-footer .row {
+        flex-wrap: nowrap !important;
+    }
+    
+    .site-footer [class^="col-"] {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+}
+
+/* 2. MOBILE VIEW (< 480px) 
+   Collapses Navbar to Sidebar and Footer to vertical stack.
+*/
+@media (max-width: 480px) {
+    body { padding-top: 60px; }
+    
+    /* --- NAVBAR SIDEBAR --- */
+    .navbar-toggler {
+        display: block !important;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 1100;
+        border: none;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
+    .navbar-brand { margin-left: 45px; }
+
+    .navbar-collapse {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh !important;
+        background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        padding-top: 60px;
+        display: block !important;
+        border-right: 1px solid #333;
+        max-height: none !important; 
+    }
+    
+    .navbar-collapse.show { transform: translateX(0); }
+
+    .navbar-nav { flex-direction: column !important; width: 100%; }
+    .navbar-bottom .nav-link {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: #e1e1e1 !important;
+    }
+    
+    .dropdown-menu {
+        position: static !important;
+        width: 100%;
+        background: rgba(0,0,0,0.3) !important;
+        border: none;
+        padding: 0;
+    }
+    .dropdown-item { padding-left: 2.5rem; }
+
+    /* --- FOOTER COLLAPSE --- */
+    .site-footer .row {
+        flex-wrap: wrap !important;
+    }
+    
+    .site-footer [class^="col-"] {
+        flex-basis: 100% !important;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
     .footer-tuner-container { 
         justify-content: center !important; 
     }
-}
-
-@media (min-width: 769px) {
-    /* Force tuner to right-align on Desktop */
-    .footer-tuner-container {
-        justify-content: flex-end !important;
-    }
-}
-
-@media (max-width: 991px) { 
-    .site-footer [class^=col-] { margin-bottom: 10px; } 
 }
