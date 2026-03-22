@@ -268,7 +268,6 @@ main { flex: 1 0 auto; }
 /* --- RESPONSIVE SETTINGS --- */
 /* 1. LOCK NAVBAR TO DESKTOP MODE (> 480px) */
 @media (min-width: 481px) {
-    /* Hide Toggler Icon */
     .navbar-toggler {
         display: none !important;
     }
@@ -325,67 +324,30 @@ main { flex: 1 0 auto; }
    Collapses Navbar to Sidebar and Footer to vertical stack.
 */
 @media (max-width: 480px) {
-    body { padding-top: 0px; }
+    body { padding-top: 0px; background: rgba(4,68,72,1); }
     
     /* --- NAVBAR SIDEBAR --- */
-    .navbar-toggler {
-        display: block !important;
-        position: absolute;
-        left: 2px;
-        top: 3px;
-        z-index: 1100;
-        border: none;
-        outline: none !important;
-        box-shadow: none !important;
-        padding: 0.2rem 0.4rem;
-        font-size: 1rem;
-    }
-    
+    .navbar-toggler { display: block !important; position: absolute; left: 2px; top: 3px; z-index: 1100; border: none; outline: none !important; box-shadow: none !important; padding: 0.2rem 0.4rem; font-size: 1rem; }
     .navbar-brand { margin-left: 45px; }
-
-    .navbar-collapse {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        width: 220px;
-        height: 100vh !important;
-        background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
-        z-index: 1050;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        overflow-y: auto;
-        padding-top: 60px;
-        display: block !important;
-        border-right: 1px solid #333;
-        max-height: none !important; 
-    }
-    
+    .navbar-collapse { position: fixed !important; top: 0; left: 0; width: 220px; height: 100vh !important; background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding-top: 60px; display: block !important; border-right: 1px solid #333; max-height: none !important; }
     .navbar-collapse.show { transform: translateX(0); }
-
     .navbar-nav { flex-direction: column !important; width: 100%; }
-    .navbar-bottom .nav-link {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        color: #e1e1e1 !important;
-    }
-    
-    .dropdown-menu {
-        position: static !important;
-        width: 100%;
-        background: rgba(0,0,0,0.3) !important;
-        border: none;
-        padding: 0;
-    }
+    .navbar-bottom .nav-link { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); color: #e1e1e1 !important; }
+    .dropdown-menu { position: static !important; width: 100%; background: rgba(0,0,0,0.3) !important; border: none; padding: 0; }
     .dropdown-item { padding-left: 2.5rem; }
 
-    /* Footer Collapse Logic */
-    .site-footer .row { flex-wrap: wrap !important; }
-    .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100%; margin-bottom: 10px; }
-
-    .footer-tuner-container { justify-content: center !important; }
+    /* --- FOOTER: Collapsed & Centered --- */
+    .site-footer { text-align: center !important; padding-top: 20px; }
+    .site-footer .row { flex-direction: column !important; flex-wrap: wrap !important; align-items: center !important; }
+    .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100% !important; width: 100% !important; margin-bottom: 20px !important; text-align: center !important; padding: 0 !important; }
+    .footer-logo { display: block; margin-bottom: 5px; }
+    .social-icons { justify-content: center !important; }
+    .footer-links { text-align: center !important; }
+    .footer-tuner-container { justify-content: center !important; margin-top: 10px; }
 
     /* Home Page Collapse Logic */
     .features-grid { grid-template-columns: 1fr; }
     .info-section { flex-direction: column; flex-wrap: wrap; }
     .info-content, .info-image { width: 100%; }
+    .terms{text-align: center !important;}
 }
