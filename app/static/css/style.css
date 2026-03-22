@@ -287,21 +287,21 @@ main { flex: 1 0 auto; }
 /* 2. MOBILE VIEW (< 480px) 
    Collapses Navbar to Sidebar and Footer to vertical stack.
 */
-@media (max-width: 480px) {
+@media (max-width: 780px) {
     body { padding-top: 60px; }
     
     /* --- NAVBAR SIDEBAR --- */
     .navbar-toggler {
         display: block !important;
         position: absolute;
-        left: 0px;
-        top: 0px;
+        left: 2px;
+        top: 2px;
         z-index: 1100;
         border: none;
         outline: none !important;
         box-shadow: none !important;
         padding: 0.2rem 0.4rem;   /* Smaller padding around the icon */
-        font-size: 0.75rem;       /* Shrinks the icon lines */
+        font-size: 1.2rem;       /* Shrinks the icon lines */
     }
     
     .navbar-brand { margin-left: 45px; }
@@ -310,7 +310,7 @@ main { flex: 1 0 auto; }
         position: fixed !important;
         top: 0;
         left: 0;
-        width: 160px;
+        width: 200px;
         height: 100vh !important;
         background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
         z-index: 1050;
