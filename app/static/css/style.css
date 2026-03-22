@@ -268,95 +268,124 @@ main { flex: 1 0 auto; }
 /* --- RESPONSIVE SETTINGS --- */
 /* 1. LOCK NAVBAR TO DESKTOP MODE (> 480px) */
 @media (min-width: 481px) {
-    .navbar-toggler { display: none !important; }
-    .navbar-brand { margin-left: 0 !important; }
-    .navbar-collapse {
-        display: flex !important; flex-basis: auto !important; flex-wrap: nowrap !important;
-        position: static !important; top: auto !important; left: auto !important; width: auto !important;
-        height: auto !important; max-height: none !important; background: transparent !important;
-        transform: none !important; box-shadow: none !important; border: none !important;
-        padding-top: 0 !important; overflow: visible !important;
+    /* Hide Toggler Icon */
+    .navbar-toggler {
+        display: none !important;
     }
-    .navbar-nav { flex-direction: row !important; flex-wrap: nowrap !important; }
-    .dropdown-menu { position: absolute !important; width: auto !important; }
-    .nav-link { white-space: nowrap; }
+
+    /* Reset Brand Position */
+    .navbar-brand {
+        margin-left: 0 !important;
+    }
+
+    /* FORCE Menu Container to be Horizontal & Static */
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto !important;
+        flex-wrap: nowrap !important; /* Prevents items dropping to next line */
+        position: static !important;  /* Keeps it in the header flow */
+        
+        /* Reset all mobile/sidebar properties */
+        top: auto !important;
+        left: auto !important;
+        width: auto !important;
+        height: auto !important;
+        max-height: none !important;
+        background: transparent !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding-top: 0 !important;
+        overflow: visible !important;
+    }
+
+    /* Force Links to stay in a Row */
+    .navbar-nav {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Ensure Dropdowns behave like Desktop (Floating) instead of Static/Mobile */
+    .dropdown-menu {
+        position: absolute !important;
+        width: auto !important;
+    }
+
+    /* Prevent link text from wrapping */
+    .nav-link {
+        white-space: nowrap;
+    }
+    
+    /* Force Footer Horizontal */
     .site-footer .row { flex-wrap: nowrap !important; }
     .site-footer [class^="col-"] { flex-basis: 0; flex-grow: 1; max-width: 100%; }
 }
 
-/* 2. MOBILE VIEW (< 480px) - REFINED & POLISHED */
+/* 2. MOBILE VIEW (< 480px) 
+   Collapses Navbar to Sidebar and Footer to vertical stack.
+*/
 @media (max-width: 480px) {
-    /* --- Base Layout --- */
-    body { 
-        padding-top: 55px; /* Reduced padding for smaller header */
-        font-size: 12px;  /* Slightly smaller base font for mobile density */
+    body { padding-top: 0px; }
+    
+    /* --- NAVBAR SIDEBAR --- */
+    .navbar-toggler {
+        display: block !important;
+        position: absolute;
+        left: 2px;
+        top: 3px;
+        z-index: 1100;
+        border: none;
+        outline: none !important;
+        box-shadow: none !important;
+        padding: 0.2rem 0.4rem;
+        font-size: 1rem;
     }
     
-    main.container { padding: 0 12px; } /* Consistent side padding */
-
-    /* --- Navbar Mobile --- */
-    .navbar { min-height: 50px; } /* Slightly shorter header */
-    .navbar-toggler { display: block !important; position: absolute; left: 5px; top: 8px; z-index: 1100; border: none; outline: none !important; box-shadow: none !important; padding: 0.2rem 0.4rem; font-size: 0.9rem; }
-    .navbar-brand { margin-left: 40px; font-size: 0.9rem !important; } /* Adjusted for smaller screen */
+    .navbar-brand { margin-left: 45px; }
 
     .navbar-collapse {
-        position: fixed !important; top: 0; left: 0; width: 220px; height: 100vh !important;
-        background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important; z-index: 1050;
-        transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto;
-        padding-top: 50px; display: block !important; border-right: 1px solid #333; max-height: none !important; 
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 220px;
+        height: 100vh !important;
+        background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        padding-top: 60px;
+        display: block !important;
+        border-right: 1px solid #333;
+        max-height: none !important; 
     }
+    
     .navbar-collapse.show { transform: translateX(0); }
+
     .navbar-nav { flex-direction: column !important; width: 100%; }
-    .navbar-bottom .nav-link { padding: 0.8rem 1.2rem; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); color: #e1e1e1 !important; }
-    
-    .dropdown-menu { position: static !important; width: 100%; background: rgba(0,0,0,0.3) !important; border: none; padding: 0; }
-    .dropdown-item { padding: 0.6rem 1.5rem; font-size: 0.85rem; }
-
-    /* --- Typography & Headers --- */
-    h1, .hero-title { font-size: 1.6rem !important; }
-    h2, .header-welcome h3 { font-size: 1.2rem !important; margin-bottom: 0.5rem; }
-    h3, .info-content h3 { font-size: 1.1rem !important; }
-    h6 { font-size: 0.85rem !important; }
-    p, .sub-text, .feature-text { font-size: 0.8rem; line-height: 1.5; }
-
-    /* --- Card & Container Polish (Unified Backgrounds) --- */
-    /* Force all cards/containers to look consistent and clean */
-    .card, .stat-card, .course-container, .course-section {
-        background: rgba(0, 0, 0, 0.4) !important; /* Uniform dark transparent */
-        border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Subtle border */
-        border-radius: 8px; /* Consistent rounding */
-        box-shadow: none !important; /* Remove heavy shadows */
+    .navbar-bottom .nav-link {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: #e1e1e1 !important;
     }
     
-    .card-header, .section-title {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-        padding: 0.6rem 0.8rem;
-        color: #fff !important;
+    .dropdown-menu {
+        position: static !important;
+        width: 100%;
+        background: rgba(0,0,0,0.3) !important;
+        border: none;
+        padding: 0;
     }
+    .dropdown-item { padding-left: 2.5rem; }
 
-    /* Dashboard specifics */
-    .stats-row { margin: 0 -5px; }
-    .stat-col { padding: 0 5px; margin-bottom: 10px; }
-    .stat-body { padding: 0.8rem; }
-    .stat-content h4 { font-size: 1rem; }
+    /* Footer Collapse Logic */
+    .site-footer .row { flex-wrap: wrap !important; }
+    .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100%; margin-bottom: 10px; }
 
-    /* --- Home Page Components --- */
-    .hero-section { padding: 1.5rem 0.5rem; margin-bottom: 1.5rem; }
-    .hero-icon i { font-size: 2.5rem; }
-    
-    .features-grid { gap: 1rem; margin-bottom: 2rem; }
-    .feature-card { padding: 1.2rem; background: rgba(255, 255, 255, 0.03) !important; }
-    .feature-icon i { font-size: 1.8rem; }
+    .footer-tuner-container { justify-content: center !important; }
 
-    .info-section { padding: 1.5rem 0; gap: 1.5rem; }
-
-    .ai-statement { margin-top: 2rem; padding: 0 0.5rem; }
-
-    /* --- Footer --- */
-    .site-footer { padding: 20px 10px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
-    .site-footer .row { justify-content: center; }
-    .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100%; margin-bottom: 15px; }
-    .site-footer h6 { margin-top: 10px; margin-bottom: 5px; }
-    .footer-tuner-container { justify-content: center !important; margin-top: 0; margin-bottom: 10px; }
+    /* Home Page Collapse Logic */
+    .features-grid { grid-template-columns: 1fr; }
+    .info-section { flex-direction: column; flex-wrap: wrap; }
+    .info-content, .info-image { width: 100%; }
 }
