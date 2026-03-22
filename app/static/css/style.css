@@ -300,6 +300,8 @@ main { flex: 1 0 auto; }
         border: none;
         outline: none !important;
         box-shadow: none !important;
+        padding: 0.2rem 0.4rem;   /* Smaller padding around the icon */
+        font-size: 0.75rem;       /* Shrinks the icon lines */
     }
     
     .navbar-brand { margin-left: 45px; }
@@ -308,7 +310,7 @@ main { flex: 1 0 auto; }
         position: fixed !important;
         top: 0;
         left: 0;
-        width: 260px;
+        width: 160px;
         height: 100vh !important;
         background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important;
         z-index: 1050;
