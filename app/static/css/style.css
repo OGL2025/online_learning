@@ -5,7 +5,7 @@
     --accent-color: #e74c3c; 
     --footer-bg: #1a252f;     
     /* Tunable Colors */
-    --bg-theme-color: #034;       /* Gradient Start Color */
+    --bg-theme-color: rgba(4,68,72,1);     /* Gradient Start Color */
     --base-bg-color: #0a0f14;     /* Page Border/Root Background */    
     background: var(--base-bg-color); /* Apply root background */
 }
@@ -324,18 +324,39 @@ main { flex: 1 0 auto; }
    Collapses Navbar to Sidebar and Footer to vertical stack.
 */
 @media (max-width: 480px) {
-    body { padding-top: 0px; background: rgba(4,68,72,1); }
     
+    /* 1. Reset body background & REMOVE shadow */
+    body { 
+        padding-top: 0px; 
+        background: rgb(0, 22, 45); 
+        box-shadow: none; /* Removes the gray overlay caused by shadow */
+        font-size: 8px;        
+    }
+
+    /* 2. Remove background toggle color edit option */
+    .footer-tuner-container { 
+        display: none !important; 
+    }
+
     /* --- NAVBAR SIDEBAR --- */
-    .navbar-toggler { display: block !important; position: absolute; left: 2px; top: 3px; z-index: 1100; border: none; outline: none !important; box-shadow: none !important; padding: 0.2rem 0.4rem; font-size: 1rem; }
+    .navtitle {font-size: 0.6rem; margin-left:0; padding: 0;}
+    .navdir {font-size:0.5rem; color: rgb(104, 104, 104); text-align: center; margin: 12px;}
+    .navbar-toggler { display: block !important; position: absolute; left: 1px; top: 7.5px; z-index: 1100; border: none; outline: none !important; box-shadow: none !important; padding: 0.1rem 0.1rem; font-size: 0.8rem; }
     .navbar-brand { margin-left: 45px; }
-    .navbar-collapse { position: fixed !important; top: 0; left: 0; width: 220px; height: 100vh !important; background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding-top: 60px; display: block !important; border-right: 1px solid #333; max-height: none !important; }
+    .navbar-top {border-bottom: none;}
+    .navbar-collapse { position: fixed !important; top: 0; left: 0; width: 240px; height: 100vh !important; background: linear-gradient(180deg, #1a1f24 0%, #000 100%) !important; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding-top: 60px; display: block !important; border-right: 1px solid #333; max-height: none !important; }
     .navbar-collapse.show { transform: translateX(0); }
     .navbar-nav { flex-direction: column !important; width: 100%; }
     .navbar-bottom .nav-link { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); color: #e1e1e1 !important; }
     .dropdown-menu { position: static !important; width: 100%; background: rgba(0,0,0,0.3) !important; border: none; padding: 0; }
     .dropdown-item { padding-left: 2.5rem; }
+    .nav-auth-link {padding: 0.1rem 0.1rem; font-weight: 500; font-size: 0.7rem; margin-right: -2px;}
 
+    .stat-card { margin-top: 17px; margin-bottom: -28px;}
+    .stat-label {font-size: 0.55rem;}
+    .stat-content h6 {
+        margin-top: -0.2rem; font-size: 0.85rem;
+    }
     /* --- FOOTER: Collapsed & Centered --- */
     .site-footer { text-align: center !important; padding-top: 20px; }
     .site-footer .row { flex-direction: column !important; flex-wrap: wrap !important; align-items: center !important; }
@@ -343,7 +364,7 @@ main { flex: 1 0 auto; }
     .footer-logo { display: block; margin-bottom: 5px; }
     .social-icons { justify-content: center !important; }
     .footer-links { text-align: center !important; }
-    .footer-tuner-container { justify-content: center !important; margin-top: 10px; }
+    /* .footer-tuner-container { justify-content: center !important; margin-top: 10px; } */
 
     /* Home Page Collapse Logic */
     .features-grid { grid-template-columns: 1fr; }

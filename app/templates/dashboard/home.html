@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block breadcrumb %}Home/Dashboard{% endblock %}
+{% block breadcrumb %} {% endblock %}
 
 {% block content %}
 
@@ -10,8 +10,8 @@
             <div class="stat-body">
                 <div class="stat-content" style="text-align: center;">
                     <div>
-                        <h6 class="stat-label">My Courses</h6>
-                        <h4>{{ courses|length }}</h4>
+                        <p class="stat-label">My Courses</p>
+                        <h6>{{ courses|length }}</h6>
                     </div>
                 </div>
             </div>
@@ -22,8 +22,8 @@
             <div class="stat-body">
                 <div class="stat-content" style="text-align: center;">
                     <div>
-                        <h6 class="stat-label">Pending Tasks</h6>
-                        <h4>0</h4>
+                        <p class="stat-label">Pending Tasks</p>
+                        <h6>0</h6>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,8 @@
             <div class="stat-body">
                 <div class="stat-content" style="text-align: center;">
                     <div>
-                        <h6 class="stat-label">Status</h6>
-                        <h4>Active</h4>
+                        <p class="stat-label">Status</p>
+                        <h6>Active</h6>
                     </div>
                 </div>
             </div>
@@ -143,5 +143,7 @@
             {% endfor %}
         </div>
     </div>
+
 </div>
+    <div class="navdir">HOME / DASHBOARD</div>
 {% endblock %}

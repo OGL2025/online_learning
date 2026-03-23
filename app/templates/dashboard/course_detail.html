@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block breadcrumb %}Home / Dashboard / {{ course.code }}{% endblock %}
+{% block breadcrumb %}{% endblock %}
 
 {% block content %}
 <div class="course-detail-container">
@@ -186,6 +186,7 @@
     </div>
 
 </div>
+    <div class="navdir">HOME / DASHBOARD / {{ course.code }}</div>
 
 <script>
 function toggleDesc(button) {
