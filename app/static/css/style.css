@@ -385,13 +385,13 @@ main { flex: 1 0 auto; }
     .info-image { width: 70%;}
     .flex-edu {font-size: 0.8rem; }
 
-    .ai-statement { text-align: center; margin-top: 1.5rem; margin-bottom: -5rem; }
+    .ai-statement { text-align: center; margin-top: 1.5rem; margin-bottom: -7rem; }
     .ai-statement p { font-size: 0.75rem; color: #c4c4c4;  }
 
     /* 1. Centering the video */
     .video-container {
         display: flex;
-        margin-top: -4rem; /* Reduced from 100px for a tighter fit */
+        margin-top: -6rem; /* Reduced from 100px for a tighter fit */
         margin-bottom: -4rem; /* Ensure no bottom margin is pushing the footer */
         justify-content: center;
         align-items: center;
