@@ -344,7 +344,7 @@ main { flex: 1 0 auto; }
         background: rgb(0, 22, 45); 
         box-shadow: none; /* Removes the gray overlay caused by shadow */
         font-size: 8px;    
-        min-height: 170vh;
+        min-height: 180vh;
         /* max-width: 1000px;
         margin: 0 auto; */
     }
