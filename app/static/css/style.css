@@ -17,6 +17,7 @@ body {
         linear-gradient(0deg, var(--bg-theme-color) 0%, #030a0f 100%);
     box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
     font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding-top: 70px;
@@ -24,7 +25,6 @@ body {
     margin: 0 auto;
     color: #e1e1e1;
     font-size: 13px;
-    border: 1px solid #000;
 }
 
 main { flex: 1 0 auto; }
@@ -78,7 +78,7 @@ main { flex: 1 0 auto; }
 .form-control:focus { background-color: #222; border-color: var(--secondary-color); color: #fff; box-shadow: 0 0 0 0.1rem rgba(52, 152, 219, 0.25); }
 
 /* --- FOOTER --- */
-.site-footer { background: linear-gradient(135deg, #724 0%, #101 100%); padding: 15px 0 10px; font-size: 11px; line-height: 1.4; color: #d1d1d1; flex-shrink: 0; border-top: 1px solid #000; margin-top: 0px; }
+.site-footer { background: linear-gradient(135deg, #724 0%, #101 100%); padding: 15px 0 10px; font-size: 11px; line-height: 1.4; color: #d1d1d1; flex-shrink: 0; border-top: 1px solid #000; margin-top: auto; width: 100%; }
 .site-footer h6 { color: #fff; font-size: 12px; text-transform: uppercase; margin-top: 0; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px; }
 .site-footer a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
 .site-footer a:hover { color: var(--secondary-color); text-decoration: none; }
@@ -251,6 +251,32 @@ main { flex: 1 0 auto; }
 .ai-statement { text-align: center; margin-top: 4rem; padding-bottom: 1rem; }
 .ai-statement p { font-size: 0.85rem; color: #777; letter-spacing: 0.5px; margin: 0; }
 
+
+/* 1. Centering the video */
+.video-container {
+    display: flex;
+    margin-top: 40px; /* Reduced from 100px for a tighter fit */
+    margin-bottom: 0; /* Ensure no bottom margin is pushing the footer */
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; 
+    background-color: transparent; 
+}
+
+/* 2. Fading the edges and disabling clicks */
+.faded-video {
+    width: 400px;
+    aspect-ratio: 1 / 1; /* Forces a square aspect ratio for a perfect circle mask */
+    object-fit: cover;   /* Ensures video fills the square without stretching */
+    pointer-events: none; 
+    
+    /* The Fade Effect:
+       - 'black 30%' means the center is 100% visible.
+       - 'transparent 70%' means it's fully faded by the time it hits the edge.
+    */
+    -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+    mask-image: radial-gradient(circle, black 30%, transparent 50%);
+}
 /* --- RESPONSIVE SETTINGS --- */
 /* 1. LOCK NAVBAR TO DESKTOP MODE (> 480px) */
 @media (min-width: 481px) {
@@ -317,7 +343,8 @@ main { flex: 1 0 auto; }
         padding-bottom: 0px;
         background: rgb(0, 22, 45); 
         box-shadow: none; /* Removes the gray overlay caused by shadow */
-        font-size: 8px;     
+        font-size: 8px;    
+        min-height: 150vh;
     }
 
     /* 2. Remove background toggle color edit option */
@@ -340,13 +367,53 @@ main { flex: 1 0 auto; }
     .nav-auth-link {padding: 0.12rem 0.3rem; font-weight: 600; font-size: 0.73rem; margin-right: -10px;}
 
     .hero-icon i { font-size: 3rem; margin-bottom: -1rem;}
-    .hero-section { text-align: center; padding: 1rem 0rem; margin-bottom: 2rem; margin-top: 2rem;}
+    .hero-section { text-align: center; padding: 1rem 0rem; margin-bottom: 0rem; margin-top: 2rem;}
     .hero-title { font-weight: 800; font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; margin-top: -10px;}
     .hero-subtitle { font-size: 0.9rem; color: #ccc; max-width: 600px; margin: 0 auto 1.5rem auto; line-height: 1.3; }
 
-    .stat-card { margin-top: 17px; margin-bottom: 0px;}
+    .stat-card { margin-top: 1px; margin-bottom: 0px;}
     .stat-label {font-size: 0.55rem;}
     .stat-content h6 {margin-top: -0.2rem; font-size: 0.85rem;}
+
+    /* Home Page Collapse Logic */
+    .features-grid { grid-template-columns: 1fr; margin-top: 0px; margin-bottom: 0px;}
+    .feature-card {margin-top: 1px; margin-top: 1px; border-radius: 13px;}
+    .feature-title {margin-top: 0px; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase;}
+    .feature-text {font-size: 0.8rem; margin-bottom: 5px; line-height: 1;}   
+    .info-section { flex-direction: column; flex-wrap: wrap; }
+    .info-content { width: 100%; margin: 0rem auto; line-height: 0.5;}
+    .info-image { width: 70%;}
+    .flex-edu {font-size: 0.8rem; }
+
+    .ai-statement { text-align: center; margin-top: 1.5rem; margin-bottom: -5rem; }
+    .ai-statement p { font-size: 0.75rem; color: #c4c4c4;  }
+
+    /* 1. Centering the video */
+    .video-container {
+        display: flex;
+        margin-top: -4rem; /* Reduced from 100px for a tighter fit */
+        margin-bottom: -4rem; /* Ensure no bottom margin is pushing the footer */
+        justify-content: center;
+        align-items: center;
+        min-height: 400px; 
+        background-color: transparent; 
+    }
+
+    /* 2. Fading the edges and disabling clicks */
+    .faded-video {
+        width: 400px;
+        aspect-ratio: 1 / 1; /* Forces a square aspect ratio for a perfect circle mask */
+        object-fit: cover;   /* Ensures video fills the square without stretching */
+        pointer-events: none; 
+        
+        /* The Fade Effect:
+        - 'black 30%' means the center is 100% visible.
+        - 'transparent 70%' means it's fully faded by the time it hits the edge.
+        */
+        -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+        mask-image: radial-gradient(circle, black 30%, transparent 50%);
+    }
+
     /* --- FOOTER: Collapsed & Centered --- */
     .site-footer { text-align: center !important; padding-top: 8px; }
     .site-footer .row { flex-direction: column !important; flex-wrap: wrap !important; align-items: center !important; margin-bottom: -5px; }
@@ -359,22 +426,6 @@ main { flex: 1 0 auto; }
     .social-icons li a { display: block; width: 20px; height: 20px; border-radius: 50%; background-color: rgba(255,255,255,0.1); color: #fff; text-align: center; line-height: 20px; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.2); font-size: 0.6rem; }
     .footer-links { text-align: center !important;}
     /* .footer-tuner-container { justify-content: center !important; margin-top: 10px; } */
-
-    /* Home Page Collapse Logic */
-    .features-grid { grid-template-columns: 1fr; margin-top: -10px; }
-    .feature-card {margin-top: -13px; margin-top: -5px; border-radius: 13px;}
-    .feature-title {margin-top: -10px; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase;}
-    .feature-text {font-size: 0.8rem; margin-bottom: -15px; line-height: 1;}   
-    .info-section { flex-direction: column; flex-wrap: wrap; }
-    .info-content { width: 100%; margin: -2rem auto; line-height: 0.5;}
-    .info-image { width: 70%;}
-    .info-image img {height: auto; border-radius: 8px; box-shadow: 20px 25px 30px rgba(0,0,0,1); 
-        -webkit-mask: radial-gradient(circle, black 50%, transparent 100%); padding-bottom: 25px; margin-top: 1rem;}
-
-    .flex-edu {font-size: 0.8rem; }
-
-    .ai-statement { text-align: center; margin-top: -1rem; margin-bottom: 0rem; }
-    .ai-statement p { font-size: 0.75rem; color: #777;  }
 
     .terms{text-align: center !important; margin-top: -2px;}
 }
