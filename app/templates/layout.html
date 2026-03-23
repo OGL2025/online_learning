@@ -116,7 +116,7 @@
     </nav>
 
     <!-- Flash Messages -->
-    <div class="container mt-3">
+    <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -131,7 +131,7 @@
     </div>
 
     <!-- ========== MAIN CONTENT ========== -->
-    <main class="container my-4">
+    <main class="container">
         {% block content %}{% endblock %}
     </main>
 
@@ -141,7 +141,7 @@
             <div class="row">
                 <!-- Column 1 -->
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <span class="footer-logo"><i class="bi bi-mortarboard-fill"></i> DODL UNITECH</span>
+                    <span class="footer-logo"  style="font-size: 0.8rem; margin-bottom: -1px; margin-top: 8px;"><i class="bi bi-mortarboard-fill"></i> DODL UNITECH</span>
                     <p>DODL provides accessible, high-quality education.</p>
                     <ul class="social-icons">
                         <li><a href="#"><i class="bi bi-facebook"></i></a></li>
@@ -151,30 +151,30 @@
                 </div>
 
                 <!-- Column 2 -->
-                <div class="col-xs-6 col-md-4 col-lg-2">
-                    <h6>Quick Links</h6>
+                <div class="col-xs-6 col-md-4 col-lg-2" >
+                    <h6 style="font-size: 0.8rem; margin-bottom: 0px;">Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                        <li><a href="#">Academic Calendar</a></li>
-                        <li><a href="#">Student Handbook</a></li>
+                        <li style="margin-bottom: 0px;"><a href="{{ url_for('main.index') }}">Home</a></li>
+                        <li style="margin-bottom: 0px;"><a href="#">Academic Calendar</a></li>
+                        <li style="margin-bottom: 0px;"><a href="#">Student Handbook</a></li>
                     </ul>
                 </div>
 
                 <!-- Column 3 -->
                 <div class="col-xs-6 col-md-4 col-lg-2">
                     <h6>Resources</h6>
-                    <ul class="footer-links">
-                        <li><a href="#">Library</a></li>
-                        <li><a href="#">e-Learning Portal</a></li>
-                        <li><a href="#">Exam Results</a></li>
+                    <ul class="footer-links" style="margin-bottom: 0px;">
+                        <li style="margin-bottom: 0px;"><a href="#">Library</a></li>
+                        <li style="margin-bottom: 0px;"><a href="#">e-Learning Portal</a></li>
+                        <li style="margin-bottom: 0px;"><a href="#">Exam Results</a></li>
                     </ul>
                 </div>
 
                 <!-- Column 4 -->
-                <div class="col-sm-12 col-md-4 col-lg-4 mt-3 mt-lg-0">
-                    <h6>Contact Us</h6>
-                    <p><i class="bi bi-geo-alt-fill me-2"></i> University of Technology, Lae, PNG</p>
-                    <p><i class="bi bi-envelope-fill me-2"></i> dodl@unitech.ac.pg</p>
+                <div class="col-sm-12 col-md-4 col-lg-4 mt-3 mt-lg-0" >
+                    <h6 style="margin-top: -14px;">Contact Us</h6>
+                    <p style="margin-bottom: 0px;"><i class="bi bi-geo-alt-fill me-2"></i> University of Technology, Lae, PNG</p>
+                    <p style="margin-bottom: 0px;"><i class="bi bi-envelope-fill me-2"></i> dodl@unitech.ac.pg</p>
                 </div>
             </div>
                      <!-- THEME TUNER (Centered Above Link) -->
@@ -187,17 +187,14 @@
             <hr>
             
             <!-- BOTTOM ROW: Copyright + Tuner/Legal -->
-            <div class="row align-items-center">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <p class="copyright-text">&copy; 2024 DODL UNITECH. All Rights Reserved.</p>
-                </div>
+            <div class="row align-items-center"  style="color: #999;">
                 <div class="col-md-6 col-sm-6 col-xs-12 text-center text-md-end">
-                
-
-                    <!-- LEGAL LINK -->
-                    <div class="terms">
-                        <a href="{{ url_for('main.legal') }}">Terms & Privacy Policy</a>
+                    <div class="terms"  style="margin-top: 5px;">
+                        <a href="{{ url_for('main.legal') }}"><p style="color: #999;">Terms & Privacy Policy</p></a>
                     </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: -5px;">
+                    <p class="copyright-text">&copy; 2026 DODL UNITECH. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
