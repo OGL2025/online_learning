@@ -402,7 +402,7 @@ main { flex: 1 0 auto; }
 
     /* 2. Fading the edges and disabling clicks */
     .faded-video {
-        width: 350px;
+        width: 330px;
         aspect-ratio: 1 / 1; /* Forces a square aspect ratio for a perfect circle mask */
         object-fit: cover;   /* Ensures video fills the square without stretching */
         pointer-events: none; 
