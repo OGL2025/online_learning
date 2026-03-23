@@ -5,7 +5,7 @@
     --accent-color: #e74c3c; 
     --footer-bg: #2f1a25;     
     /* Tunable Colors */
-    --bg-theme-color: rgba(4,68,72,1);     /* Gradient Start Color */
+    --bg-theme-color: rgb(1, 13, 27);     /* Gradient Start Color */
     --base-bg-color: #0a140a;     /* Page Border/Root Background */    
     background: var(--base-bg-color); /* Apply root background */
 }
@@ -13,7 +13,7 @@ html, body { height: 100%; }
 
 body {
     background: 
-        radial-gradient(ellipse at 30% 40%, rgba(0, 130, 130, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 40%, rgba(0, 29, 43, 0.12) 0%, transparent 50%),
         linear-gradient(0deg, var(--bg-theme-color) 0%, #030a0f 100%);
     box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
     font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
