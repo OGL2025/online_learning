@@ -344,7 +344,9 @@ main { flex: 1 0 auto; }
         background: rgb(0, 22, 45); 
         box-shadow: none; /* Removes the gray overlay caused by shadow */
         font-size: 8px;    
-        min-height: 150vh;
+        min-height: 170vh;
+        /* max-width: 1000px;
+        margin: 0 auto; */
     }
 
     /* 2. Remove background toggle color edit option */
@@ -358,13 +360,13 @@ main { flex: 1 0 auto; }
     .navbar-toggler { display: block !important; position: absolute; left: 2px; top: 2.4px; z-index: 1100; border: none; outline: none !important; box-shadow: none !important; padding: 0.1rem 0.2rem; font-size: 1rem; }
     .navbar-brand { margin-left: 45px; }
     .navbar-top {border-bottom: none;}
-    .navbar-collapse { position: fixed !important; top: 0; left: 0; width: 250px; height: 100vh !important; background: linear-gradient(180deg, #310e1a 0%, #000 100%) !important; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding-top: 40px; display: block !important; border-right: 1.5px solid #000000; max-height: none !important; }
+    .navbar-collapse { position: fixed !important; top: 0; left: 0; width: 250px; height: 170vh !important; background: linear-gradient(180deg, #310e1a 0%, #000 100%) !important; z-index: 1050; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding-top: 40px; display: block !important; border-right: 1.5px solid #000000; max-height: none !important; }
     .navbar-collapse.show { transform: translateX(0); }
     .navbar-nav { flex-direction: column !important; width: 100%; }
     .navbar-bottom .nav-link { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.2); color: #e1e1e1 !important; font-size: 10px;}
     .dropdown-menu { position: static !important; width: 100%; background: rgba(0,0,0,0.3) !important; border: none; padding: 0; }
     .dropdown-item { padding-left: 1.7rem;  font-size: 0.7rem; margin-bottom: -px;}
-    .nav-auth-link {padding: 0.12rem 0.3rem; font-weight: 600; font-size: 0.73rem; margin-right: -10px;}
+    .nav-auth-link {padding: 0.12rem 0.3rem; font-weight: 600; font-size: 0.73rem; margin-right: -9px;}
 
     .hero-icon i { font-size: 3rem; margin-bottom: -1rem;}
     .hero-section { text-align: center; padding: 1rem 0rem; margin-bottom: 0rem; margin-top: 2rem;}
@@ -380,19 +382,18 @@ main { flex: 1 0 auto; }
     .feature-card {margin-top: 1px; margin-top: 1px; border-radius: 13px;}
     .feature-title {margin-top: 0px; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase;}
     .feature-text {font-size: 0.8rem; margin-bottom: 5px; line-height: 1;}   
-    .info-section { flex-direction: column; flex-wrap: wrap; }
+    .info-section { flex-direction: column; flex-wrap: wrap; margin-bottom: -11rem; }
     .info-content { width: 100%; margin: 0rem auto; line-height: 0.5;}
     .info-image { width: 70%;}
     .flex-edu {font-size: 0.8rem; }
 
-    .ai-statement { text-align: center; margin-top: 1.5rem; margin-bottom: -7rem; }
-    .ai-statement p { font-size: 0.75rem; color: #c4c4c4;  }
+    .info-section { display: flex; flex-wrap: nowrap; align-items: center; gap: 2rem; padding: 3rem 0;  }
 
     /* 1. Centering the video */
     .video-container {
         display: flex;
-        margin-top: -6rem; /* Reduced from 100px for a tighter fit */
-        margin-bottom: -4rem; /* Ensure no bottom margin is pushing the footer */
+
+        margin-bottom: -11rem; /* Ensure no bottom margin is pushing the footer */
         justify-content: center;
         align-items: center;
         min-height: 400px; 
@@ -401,7 +402,7 @@ main { flex: 1 0 auto; }
 
     /* 2. Fading the edges and disabling clicks */
     .faded-video {
-        width: 400px;
+        width: 350px;
         aspect-ratio: 1 / 1; /* Forces a square aspect ratio for a perfect circle mask */
         object-fit: cover;   /* Ensures video fills the square without stretching */
         pointer-events: none; 
@@ -414,11 +415,10 @@ main { flex: 1 0 auto; }
         mask-image: radial-gradient(circle, black 30%, transparent 50%);
     }
 
-    /* --- FOOTER: Collapsed & Centered --- */
-    .site-footer { text-align: center !important; padding-top: 8px; }
-    .site-footer .row { flex-direction: column !important; flex-wrap: wrap !important; align-items: center !important; margin-bottom: -5px; }
+    .ai-statement { text-align: center; margin-bottom: 0rem; }
+    .ai-statement p { font-size: 0.75rem; color: #c4c4c4;  }
+    /* --- FOOTER --- */
     .site-footer [class^="col-"] { flex-basis: 100% !important; max-width: 100% !important; width: 100% !important; margin-bottom: 12px !important; text-align: center !important; padding: 0 !important; }
-    .footer-logo { display: block; margin-bottom: 2px; }
     .social-icons { justify-content: center !important; margin-bottom: 8px;}
     .footer-logo { color: #fff; font-size: 0.7rem; font-weight: 600; margin-bottom: 2px; display: block; }
     .social-icons { list-style: none; padding: 0px; margin-bottom: 5px; }

@@ -73,7 +73,12 @@
             <img src="https://www.postcourier.com.pg/wp-content/uploads/2020/03/TopStories_05_Unitech-defers-graduation.jpg?resize=700,120" alt="Campus">
         </div>
     </section>
-
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="faded-video">
+            <source src="{{ url_for('static', filename='videos/optimusgeotechnics.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
     <!-- AI Statement -->
      <!-- <section class="feature-card"> -->
         <div class="ai-statement">
@@ -83,12 +88,7 @@
                 <i class="bi bi-cpu-fill" style="color: cyan;"></i> 
             </p>
         </div> 
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="faded-video">
-            <source src="{{ url_for('static', filename='videos/optimusgeotechnics.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+
 
 </div>
 {% endblock %}
