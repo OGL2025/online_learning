@@ -1,49 +1,168 @@
 {% extends "layout.html" %}
 {% block title %}Register{% endblock %}
 
+{% block extra_head %}
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+{% endblock %}
+
 {% block content %}
-<div class="login-container">
-    <h2 class="text-center mb-4">Student Registration</h2>
-    <form method="post" novalidate>
-        {{ form.hidden_tag() }}
-        
-        <div class="mb-3">
-            {{ form.name.label(class="form-label") }}
-            {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Full Name") }}
-            {% for error in form.name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+<div class="auth-page">
+    <div class="auth-card">
+        <!-- Brand Header -->
+        <div class="auth-brand">
+            <i class="bi bi-mortarboard-fill"></i>
+            <span>DODL UNITECH</span>
         </div>
 
-        <div class="mb-3">
-            {{ form.student_id.label(class="form-label") }}
-            {{ form.student_id(class="form-control" + (" is-invalid" if form.student_id.errors else ""), placeholder="e.g., 2024001") }}
-            {% for error in form.student_id.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+        <h2 class="auth-title">Student Registration</h2>
+        <p class="auth-subtitle">Create your account to get started</p>
+
+        <!-- Google Sign-In Button -->
+        <div id="googleSignInBtn" class="google-btn-wrapper"></div>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+            <span>or register with email</span>
         </div>
 
-        <div class="mb-3">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Email Address") }}
-            {% for error in form.email.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
-        </div>
+        <!-- Registration Form -->
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
 
-        <div class="mb-3">
-            {{ form.password.label(class="form-label") }}
-            {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else "")) }}
-            {% for error in form.password.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
-        </div>
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                <div class="auth-input-wrapper">
+                    <i class="bi bi-person auth-input-icon"></i>
+                    {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Full Name", id="regName") }}
+                    {% for error in form.name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
 
-        <div class="mb-3">
-            {{ form.password2.label(class="form-label") }}
-            {{ form.password2(class="form-control" + (" is-invalid" if form.password2.errors else "")) }}
-            {% for error in form.password2.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
-        </div>
+            <div class="mb-3">
+                {{ form.student_id.label(class="form-label") }}
+                <div class="auth-input-wrapper">
+                    <i class="bi bi-hash auth-input-icon"></i>
+                    {{ form.student_id(class="form-control" + (" is-invalid" if form.student_id.errors else ""), placeholder="e.g., 2024001") }}
+                    {% for error in form.student_id.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
 
-        <div class="d-grid">
-            {{ form.submit(class="btn btn-success") }}
-        </div>
-        
-        <p class="text-center mt-3">
-            Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                <div class="auth-input-wrapper">
+                    <i class="bi bi-envelope auth-input-icon"></i>
+                    {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Email Address", id="regEmail") }}
+                    {% for error in form.email.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                <div class="auth-input-wrapper has-toggle">
+                    <i class="bi bi-lock auth-input-icon"></i>
+                    {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), id="regPassword", placeholder="Create Password") }}
+                    <button type="button" class="password-toggle-btn" onclick="togglePw('regPassword', this)" aria-label="Toggle password visibility">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for error in form.password.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.password2.label(class="form-label") }}
+                <div class="auth-input-wrapper has-toggle">
+                    <i class="bi bi-lock-fill auth-input-icon"></i>
+                    {{ form.password2(class="form-control" + (" is-invalid" if form.password2.errors else ""), id="regPassword2", placeholder="Confirm Password") }}
+                    <button type="button" class="password-toggle-btn" onclick="togglePw('regPassword2', this)" aria-label="Toggle password visibility">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for error in form.password2.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-auth-success") }}
+            </div>
+        </form>
+
+        <p class="auth-footer-text">
+            Already have an account? <a href="{{ url_for('auth.login') }}" class="auth-link">Sign in</a>
         </p>
-    </form>
+
+        <div class="auth-security-note">
+            <i class="bi bi-shield-lock"></i> Your information is encrypted and secure
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ── Google Sign-In ──────────────────────────────────────────────
+    var GOOGLE_CLIENT_ID = '{{ google_client_id }}';
+
+    function initGoogleSignIn() {
+        if (typeof google === 'undefined' || !google.accounts) return;
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleRegister,
+            auto_select: false,
+            cancel_on_tap_outside: true,
+        });
+        google.accounts.id.renderButton(
+            document.getElementById('googleSignInBtn'),
+            { theme: 'filled_black', size: 'large', width: '100%', text: 'signup_with', shape: 'pill', logo_alignment: 'center' }
+        );
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(initGoogleSignIn, 100));
+    } else {
+        setTimeout(initGoogleSignIn, 100);
+    }
+
+    function handleGoogleRegister(response) {
+        const csrfToken = document.querySelector('input[name="csrf_token"]')?.value;
+        if (!csrfToken) { console.error('CSRF token not found'); return; }
+
+        fetch('{{ url_for("auth.google_register") }}', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+            body: JSON.stringify({ credential: response.credential }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success && data.redirect) {
+                window.location.href = data.redirect;
+            } else if (data.success && data.fill_form) {
+                // Pre-fill form fields returned from backend
+                if (data.name) document.getElementById('regName').value = data.name;
+                if (data.email) document.getElementById('regEmail').value = data.email;
+                // Scroll to student_id field since name & email are filled
+                document.getElementById('regName').closest('form').querySelector('[name="student_id"]').focus();
+            } else {
+                const msg = data.message || 'Google registration failed.';
+                const errDiv = document.createElement('div');
+                errDiv.className = 'alert alert-danger alert-dismissible fade show mt-3 d-flex align-items-center';
+                errDiv.role = 'alert';
+                errDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i><div>${msg}</div><button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+                document.querySelector('.auth-card form').prepend(errDiv);
+            }
+        })
+        .catch(err => console.error('Google register error:', err));
+    }
+
+    // ── Password Toggle ─────────────────────────────────────────────
+    function togglePw(inputId, btn) {
+        const inp = document.getElementById(inputId);
+        const ico = btn.querySelector('i');
+        if (inp.type === 'password') {
+            inp.type = 'text';
+            ico.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            inp.type = 'password';
+            ico.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+</script>
 {% endblock %}

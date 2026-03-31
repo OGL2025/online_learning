@@ -1,40 +1,149 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 
+{% block extra_head %}
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+{% endblock %}
+
 {% block content %}
-<div class="login-container">
-    <h2 class="text-center mb-4">Student Login</h2>
-    <form method="post" novalidate>
-        {{ form.hidden_tag() }}
-        
-        <div class="mb-3">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else "")) }}
-            {% for error in form.email.errors %}
-                <div class="invalid-feedback">{{ error }}</div>
-            {% endfor %}
+<div class="auth-page">
+    <div class="auth-card">
+        <!-- Brand Header -->
+        <div class="auth-brand">
+            <i class="bi bi-mortarboard-fill"></i>
+            <span>DODL UNITECH</span>
         </div>
 
-        <div class="mb-3">
-            {{ form.password.label(class="form-label") }}
-            {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else "")) }}
-            {% for error in form.password.errors %}
-                <div class="invalid-feedback">{{ error }}</div>
-            {% endfor %}
+        <h2 class="auth-title">Student Login</h2>
+        <p class="auth-subtitle">Sign in to access your courses</p>
+
+        <!-- Google Sign-In Button -->
+        <div id="googleSignInBtn" class="google-btn-wrapper"></div>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+            <span>or sign in with email</span>
         </div>
 
-        <div class="mb-3 form-check">
-            {{ form.remember_me(class="form-check-input") }}
-            {{ form.remember_me.label(class="form-check-label") }}
-        </div>
+        <!-- Email / Password Form -->
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
 
-        <div class="d-grid">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-        
-        <p class="text-center mt-3">
-            New student? <a href="{{ url_for('auth.register') }}">Register here</a>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                <div class="auth-input-wrapper">
+                    <i class="bi bi-envelope auth-input-icon"></i>
+                    {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Email Address") }}
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                <div class="auth-input-wrapper has-toggle">
+                    <i class="bi bi-lock auth-input-icon"></i>
+                    {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), id="loginPassword", placeholder="Password") }}
+                    <button type="button" class="password-toggle-btn" onclick="togglePw('loginPassword', this)" aria-label="Toggle password visibility">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for error in form.password.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="form-check">
+                    {{ form.remember_me(class="form-check-input") }}
+                    {{ form.remember_me.label(class="form-check-label") }}
+                </div>
+                {# Add a forgot-password route in Flask to enable this link #}
+                {# <a href="{{ url_for('auth.forgot_password') }}" class="auth-link">Forgot password?</a> #}
+            </div>
+
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-auth-primary") }}
+            </div>
+        </form>
+
+        <p class="auth-footer-text">
+            New student? <a href="{{ url_for('auth.register') }}" class="auth-link">Create an account</a>
         </p>
-    </form>
+
+        <div class="auth-security-note">
+            <i class="bi bi-shield-lock"></i> Protected by 256-bit SSL encryption
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ── Google Sign-In ──────────────────────────────────────────────
+    // Replace with YOUR Google Cloud Console Client ID
+    var GOOGLE_CLIENT_ID = '{{ google_client_id }}';
+
+    function initGoogleSignIn() {
+        if (typeof google === 'undefined' || !google.accounts) return;
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleLogin,
+            auto_select: false,
+            cancel_on_tap_outside: true,
+        });
+        google.accounts.id.renderButton(
+            document.getElementById('googleSignInBtn'),
+            { theme: 'filled_black', size: 'large', width: '100%', text: 'signin_with', shape: 'pill', logo_alignment: 'center' }
+        );
+    }
+
+    // Run init when script loads (handles async/defer timing)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(initGoogleSignIn, 100));
+    } else {
+        setTimeout(initGoogleSignIn, 100);
+    }
+
+    function handleGoogleLogin(response) {
+        const csrfToken = document.querySelector('input[name="csrf_token"]')?.value;
+        if (!csrfToken) { console.error('CSRF token not found'); return; }
+
+        fetch('{{ url_for("auth.google_login") }}', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+            body: JSON.stringify({ credential: response.credential }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect || '{{ url_for("main.index") }}';
+            } else {
+                // Show error via existing flash system or inline message
+                const msg = data.message || 'Google sign-in failed. Please try again.';
+                const errDiv = document.createElement('div');
+                errDiv.className = 'alert alert-danger alert-dismissible fade show mt-3 d-flex align-items-center';
+                errDiv.role = 'alert';
+                errDiv.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i><div>${msg}</div><button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+                document.querySelector('.auth-card form').prepend(errDiv);
+            }
+        })
+        .catch(err => console.error('Google login error:', err));
+    }
+
+    // ── Password Toggle ─────────────────────────────────────────────
+    function togglePw(inputId, btn) {
+        const inp = document.getElementById(inputId);
+        const ico = btn.querySelector('i');
+        if (inp.type === 'password') {
+            inp.type = 'text';
+            ico.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            inp.type = 'password';
+            ico.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+</script>
 {% endblock %}
